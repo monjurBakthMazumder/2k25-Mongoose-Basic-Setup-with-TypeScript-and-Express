@@ -1,0 +1,27 @@
+# Ignore build output
+dist
+
+# Ignore test coverage reports
+coverage
+
+# Ignore node modules
+node_modules
+
+# Ignore environment variables
+.env
+
+# Ignore logs
+*.log
+
+# Ignore compiled JS files (if you're compiling manually)
+*.js
+
+# Ignore type declaration files
+*.d.ts
+
+# Ignore all JSON files in specific folders if needed
+# public/**/*.json
+
+# Ignore IDE/editor configs (optional)
+.vscode
+.idea

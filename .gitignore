@@ -1,0 +1,22 @@
+# Ignore build output
+dist/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore environment variable files
+.env
+
+# Optional: ignore log files
+*.log
+
+# Optional: ignore system files
+.DS_Store
+
+# Optional: ignore editor config files
+.vscode/
+.idea/
+*.swp
+
+# Optional: ignore TypeScript cache
+*.tsbuildinfo
