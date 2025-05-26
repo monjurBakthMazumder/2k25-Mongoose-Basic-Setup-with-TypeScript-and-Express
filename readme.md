@@ -1,4 +1,4 @@
-# 2k25 Mongoose Basic Setup (Step-by-Step with Explanations)
+# 2k25 Mongoose Basic Setup with TypeScript and Express
 
 ---
 
