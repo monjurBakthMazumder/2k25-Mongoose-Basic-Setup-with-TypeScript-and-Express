@@ -1,28 +1,37 @@
-// Import necessary modules from express and other packages
+// app.ts
+
+// Importing required modules
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import { StudentRoutes } from './app/modules/student/student.route';
 
-// Create an Express application instance
+// Initialize the Express application
 const app: Application = express();
 
-// ------------------------------
-// Middlewares
-// ------------------------------
-
-// Enable parsing of JSON bodies in incoming requests
+/**
+ * Middleware to parse incoming JSON requests.
+ * This allows us to access the JSON body content in req.body.
+ */
 app.use(express.json());
 
-// Enable Cross-Origin Resource Sharing (CORS)
+/**
+ * Enable Cross-Origin Resource Sharing (CORS).
+ * This allows your API to be accessible from different origins (e.g., frontend apps on other domains).
+ */
 app.use(cors());
 
-// ------------------------------
-// Route Handlers
-// ------------------------------
+/**
+ * Mount the StudentRoutes router on the `/api/v1/students` path.
+ * All requests to `/api/v1/students` will be handled by StudentRoutes.
+ */
+app.use('/api/v1/students', StudentRoutes);
 
-// Define a basic GET route for the root URL
+/**
+ * Basic route handler for the root path `/`.
+ * Useful for health checks or quick confirmation that the API is running.
+ */
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-// Export the configured Express app
 export default app;

@@ -1,31 +1,44 @@
-// Import the Express app and configuration
+// server.ts
+
+import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
 
-// Import Mongoose for MongoDB connection
-import mongoose from 'mongoose';
+// Get the port from config or fallback to 5000
+const PORT = config.port || 5000;
+const DATABASE_URL = config.database_url || '';
 
-// Main function to initialize database connection and start the server
-async function main() {
+/**
+ * Connect to MongoDB database using Mongoose.
+ * Uses the connection string from environment variables.
+ * Logs success or failure of connection.
+ */
+async function connectDatabase() {
   try {
-    // Connect to MongoDB using the URL from configuration
-    await mongoose.connect(config.database_url as string);
-
-    // Start the Express server on the configured port
-    app.listen(config.port, () => {
-      console.log(`Example app listening on port ${config.port}`);
-    });
-
-    // Log success message once database is connected
+    await mongoose.connect(DATABASE_URL);
     console.log('Database connected successfully');
   } catch (error) {
-    // Log any errors that occur during DB connection or server startup
-    console.log(error);
+    console.error('Database connection failed:', error);
+    process.exit(1); // Exit process with failure
   }
-
-  // Note: Use the following syntax if your MongoDB requires authentication:
-  // await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');
 }
 
-// Invoke the main function to run the server
-main();
+/**
+ * Start the Express server.
+ * Listens on the specified port and logs the status.
+ */
+async function startServer() {
+  try {
+    await connectDatabase();
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Server failed to start:', error);
+    process.exit(1); // Exit process with failure
+  }
+}
+
+// Invoke the server start function
+startServer();
